@@ -3,6 +3,7 @@ import xarray as xr
 from typeguard import typechecked
 from datetime import datetime
 from pprint import pprint
+from typing import Self
 
 from satfarm.processor._advanced_ops import AdvancedOpsMixin
 from satfarm.processor._attributes import AttributesMixin
