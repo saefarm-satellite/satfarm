@@ -55,7 +55,7 @@ dst_dates = [
 #     save_path = f"test_data/{dst_date}_ii_intp_3B_AnalyticMS_SR_8b_clip_bandmath.tif"
 #     simage.to_tif(save_path)
 
-intp_simages = satfarm.interp_image([vis0, vis1], dst_dates)
+intp_simages = satfarm.ops.interp_image([vis0, vis1], dst_dates)
 for si, simage in enumerate(intp_simages):
     dst_date = simage.time.strftime("%Y%m%d_%H%M%S")
     save_path = f"test_data/{dst_date}_ii_intp_3B_Visual_clip.tif"
