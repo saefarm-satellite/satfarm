@@ -1,6 +1,7 @@
 import numpy as np
 import xarray as xr
 from typeguard import typechecked
+from datetime import datetime
 from pprint import pprint
 
 from satfarm.processor._advanced_ops import AdvancedOpsMixin
@@ -48,6 +49,7 @@ class SatImage(
         True
         """
         self.image = None
+        self.time = None
         self.log = [{"action": "initialize"}]
     
     def __str__(self):
@@ -99,4 +101,23 @@ class SatImage(
         if raise_error:
             raise ValueError(f"Image format is not valid: {check_info}")
         return False
+    
+    @typechecked
+    def set_time(self, time: datetime) -> Self:
+        """
+        Sets the time attribute of the image.
+
+        Parameters
+        ----------
+        time : datetime
+            The time to set for the image.
+
+        Returns
+        -------
+        SatImage
+            The modified SatImage object.
+        """
+        self.time = time
+        return self
+    
 

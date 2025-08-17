@@ -25,6 +25,7 @@ Examples
 __version__ = "0.1.0"
 
 from .SatImage import SatImage
+from .fusion import *
 
-__all__ = ["SatImage", "__version__"]
+__all__ = ["SatImage", "fusion", "__version__"]
 
