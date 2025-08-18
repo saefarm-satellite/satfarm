@@ -147,6 +147,9 @@ Desktop.ini
 # VSCode
 .vscode/
 
+# uv
+uv.lock
+
 # Project specific
 test_data/
 test_*.tif

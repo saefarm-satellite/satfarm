@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "satfarm"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Python package for satellite image processing with fluent interface"
 readme = "README.md"
 license = "MIT"
@@ -34,6 +34,7 @@ dependencies = [
     "Pillow>=9.0.0",
     "matplotlib>=3.5.0",
     "typeguard>=4.0.0",
+    "pytest>=8.0.0", 
 ]
 
 [project.urls]
