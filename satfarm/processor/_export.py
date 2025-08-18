@@ -46,6 +46,8 @@ class ExportMixin:
             SatImage()
             .read_tif(self.image.copy())
             .set_log(self.log.copy())
+            .set_alias(self.alias)
+            .set_time(self.time)
             .add_log({"action": "copy"})
         )
         return new_simage
@@ -81,6 +83,8 @@ class ExportMixin:
             SatImage()
             .read_tif(sel)
             .set_log(self.log.copy())
+            .set_alias(self.alias)
+            .set_time(self.time)
             .add_log({"action": "extract_band", "params": {"bands": bands}})
         )
         return new_simage

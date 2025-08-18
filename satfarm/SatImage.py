@@ -1,7 +1,9 @@
 import numpy as np
 import xarray as xr
 from typeguard import typechecked
+from datetime import datetime
 from pprint import pprint
+from typing import Self
 
 from satfarm.processor._advanced_ops import AdvancedOpsMixin
 from satfarm.processor._attributes import AttributesMixin
@@ -48,12 +50,17 @@ class SatImage(
         True
         """
         self.image = None
+        self.time = None
+        self.alias = ""
         self.log = [{"action": "initialize"}]
     
     def __str__(self):
         if self.image is None:
             return "SatImage(Empty)"
+        time_str = "0000-00-00 00:00:00" if self.time is None else self.time.strftime('%Y-%m-%d %H:%M:%S')
         info = [
+            f"time={time_str}",
+            f"alias={self.alias}",
             f"shape={self.image.shape[1:]}", 
             f"dtype={self.image.dtype}",
             f"nodata={self.image.rio.nodata}", 
@@ -99,4 +106,5 @@ class SatImage(
         if raise_error:
             raise ValueError(f"Image format is not valid: {check_info}")
         return False
+    
 

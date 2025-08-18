@@ -16,7 +16,8 @@ import rasterio as rio
 import xarray as xr
 from shapely.geometry import Polygon, MultiPolygon, shape
 from typeguard import typechecked
-
+from datetime import datetime
+from typing import Self
 
 class AttributesMixin:
     """
@@ -26,6 +27,42 @@ class AttributesMixin:
     of satellite images including band information, spatial boundaries,
     data validity masks, and underlying image data structures.
     """
+
+    @typechecked
+    def set_alias(self, alias: str) -> Self:
+        """
+        Sets the alias attribute of the image.
+
+        Parameters
+        ----------
+        alias : str
+            The alias to set for the image.
+
+        Returns
+        -------
+        SatImage
+            The modified SatImage object.
+        """
+        self.alias = alias
+        return self
+    
+    @typechecked
+    def set_time(self, time: datetime | None) -> Self:
+        """
+        Sets the time attribute of the image.
+
+        Parameters
+        ----------
+        time : datetime
+            The time to set for the image.
+
+        Returns
+        -------
+        SatImage
+            The modified SatImage object.
+        """
+        self.time = time
+        return self
 
     @typechecked
     def is_empty(self: SatImage) -> bool:
