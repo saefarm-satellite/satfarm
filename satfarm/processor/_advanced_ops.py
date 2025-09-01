@@ -64,6 +64,16 @@ class AdvancedOpsMixin:
         return self
     
     @typechecked
+    def add_noise(self, scale: float=0.01):
+        aoi = self.get_aoi()
+        if self.image is None:
+            raise ValueError("Image is empty")
+        h, w = self.image.data[0].shape
+        noise = np.random.normal(loc=0, scale=scale, size=(h, w))
+        self.image.data[:, aoi] += noise[aoi]
+        return self
+    
+    @typechecked
     def generate_backbone(self: SatImage, nbands: int=0, pixel_dtype: str="float32", fill_value: float=0, nodata: float=np.nan) -> SatImage:
         """
         Generates a new SatImage with the same spatial properties but new data.
