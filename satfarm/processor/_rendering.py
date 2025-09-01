@@ -68,7 +68,8 @@ class RenderingMixin:
         aoi = self.get_aoi()
         # normalize raw data
         arr = self.image.isel(band=0).data
-        arr = np.clip(arr, vmin, vmax)
+        arr = (arr - vmin) / (vmax - vmin)
+        arr = np.clip(arr, 0, 1)
         carr = (255 * cmap(arr)).astype(np.uint8)
         carr = carr.transpose(2, 0, 1)
         carr[3, ~aoi] = 0

@@ -155,4 +155,6 @@ test_data/
 test_*.tif
 test_*.png
 test_*.geojson
+tests/local.py
+MEMO.md
 
