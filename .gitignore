@@ -157,4 +157,4 @@ test_*.png
 test_*.geojson
 tests/local.py
 MEMO.md
-
+**/temp.py

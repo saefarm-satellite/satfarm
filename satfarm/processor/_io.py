@@ -66,6 +66,9 @@ class IOMixin:
             self.log.append({"action": "read_tif", "file": "rioxarray object"})
         else:
             raise ValueError(f"Invalid path type: {type(file)}")
+        # normalize epsg
+        if self.image.rio.crs != "EPSG:4326":
+            self.image = self.image.rio.reproject("EPSG:4326")
         # check image format
         self.check_image_format(raise_error=True)
         return self

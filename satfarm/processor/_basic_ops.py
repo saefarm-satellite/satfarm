@@ -15,6 +15,7 @@ import geopandas as gpd
 import numpy as np
 from rasterio.enums import Resampling
 from shapely.geometry import Polygon, MultiPolygon
+from shapely.affinity import scale
 from typing import Self
 from typeguard import typechecked
 
@@ -94,7 +95,10 @@ class BasicOpsMixin:
         return self
     
     @typechecked
-    def change_nodata(self: SatImage, new_nodata: float, old_nodata: float | list[float] | None = None) -> Self:
+    def change_nodata(self: SatImage, 
+                      new_nodata: float, 
+                      old_nodata: float | list[float] | None = None, 
+                      change_value: bool=True) -> Self:
         """
         Changes the nodata value of the image.
 
@@ -128,7 +132,8 @@ class BasicOpsMixin:
             else:
                 aoi = np.logical_and(aoi, self.image.data[0, :, :] != val)
         # change nodata
-        self.image.data[:, ~aoi] = new_nodata
+        if change_value:
+            self.image.data[:, ~aoi] = new_nodata
         self.image.rio.write_nodata(new_nodata, inplace=True)
         self.add_log({
             "action": "change_nodata", 
@@ -178,7 +183,7 @@ class BasicOpsMixin:
         return self
     
     @typechecked
-    def shrink(self: SatImage, distance: float) -> Self:
+    def shrink(self: SatImage, distance: float, prevent_vanishing: bool=True) -> Self:
         """
         Shrinks the image boundary by a specified distance.
         
@@ -223,6 +228,10 @@ class BasicOpsMixin:
             .to_crs("EPSG:4326")
             .iloc[0]
         )
+        # check if shrinked boundary is empty
+        if shrinked_boundary.is_empty:
+            if prevent_vanishing:
+                shrinked_boundary = scale(boundary, 0.5, 0.5)
         # clip
         self.clip(shrinked_boundary)
         self.add_log({

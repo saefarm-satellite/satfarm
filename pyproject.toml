@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "satfarm"
-version = "0.1.2"
+version = "0.1.3"
 description = "A Python package for satellite image processing with fluent interface"
 readme = "README.md"
 license = "MIT"
